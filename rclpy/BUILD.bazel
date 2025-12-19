@@ -43,10 +43,10 @@ pybind_extension(
     includes = ["src/rclpy"],
     deps = [
         ":msgs_c",
-        "@rcl",
         "@rcl_action",
         "@rcl_lifecycle",
         "@rcl_logging_interface",
+        "@rcl",
         "@rcpputils",
         "@rcutils",
         "@rosidl_runtime_c",
@@ -79,14 +79,14 @@ py_ros_library(
         "@rcl_interfaces//msg:SetParametersResult",
         "@rcl_interfaces//srv:DescribeParameters",
         "@rcl_interfaces//srv:GetLoggerLevels",
-        "@rcl_interfaces//srv:GetParameters",
         "@rcl_interfaces//srv:GetParameterTypes",
+        "@rcl_interfaces//srv:GetParameters",
         "@rcl_interfaces//srv:ListParameters",
         "@rcl_interfaces//srv:SetLoggerLevels",
         "@rcl_interfaces//srv:SetParameters",
         "@rcl_interfaces//srv:SetParametersAtomically",
-        "@type_description_interfaces//srv:GetTypeDescription",
         "@rosgraph_msgs//msg:Clock",
+        "@type_description_interfaces//srv:GetTypeDescription",
         "@unique_identifier_msgs//msg:UUID",
     ],
 )
@@ -94,18 +94,16 @@ py_ros_library(
 py_library(
     name = "rclpy",
     srcs = glob(["rclpy/**/*.py"]),
-    data = [
-        ":msgs_py",
-        ":rclpy/_rclpy_pybind11.so",
-        "@rpyutils",
-    ],
+    data = [":rclpy/_rclpy_pybind11.so"],
+    imports = ["."],
     deps = [
+        ":msgs_py",
         "@ament_index_python",
         "@rosdistro//bazel/python:numpy",
         "@rosdistro//bazel/python:pyyaml",
         "@rosdistro//bazel/python:typing-extensions",
+        "@rpyutils",
     ],
-    imports = ["."],
 )
 
 # Tests
