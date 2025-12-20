@@ -43,10 +43,10 @@ pybind_extension(
     includes = ["src/rclpy"],
     deps = [
         ":msgs_c",
+        "@rcl",
         "@rcl_action",
         "@rcl_lifecycle",
         "@rcl_logging_interface",
-        "@rcl",
         "@rcpputils",
         "@rcutils",
         "@rosidl_runtime_c",
