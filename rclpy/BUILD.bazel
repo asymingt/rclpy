@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# load("@rosdistro//bazel/python:macros.bzl", "py_pytest")
-# load("@rules_python//python:defs.bzl", "py_library", "py_binary")
-
 load("@pybind11_bazel//:build_defs.bzl", "pybind_extension", "pybind_library", "pybind_library_test")
 load("@rosdistro//bazel/python:macros.bzl", "py_pytest")
 load("@rosidl_generator_c//:rules.bzl", "c_ros_library")
@@ -94,7 +91,7 @@ py_ros_library(
 py_library(
     name = "rclpy",
     srcs = glob(["rclpy/**/*.py"]),
-    data = [":rclpy/_rclpy_pybind11.so"],
+    data = [":rclpy/_rclpy_pybind11"],
     imports = ["."],
     deps = [
         ":msgs_py",
