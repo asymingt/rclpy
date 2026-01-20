@@ -23,6 +23,9 @@ package(default_visibility = ["//visibility:public"])
 c_ros_library(
     name = "msgs_c",
     deps = [
+        "@lifecycle_msgs//msg:State",
+        "@lifecycle_msgs//msg:Transition",
+        "@lifecycle_msgs//msg:TransitionDescription",
         "@lifecycle_msgs//msg:TransitionEvent",
         "@lifecycle_msgs//srv:ChangeState",
         "@lifecycle_msgs//srv:GetAvailableStates",
@@ -54,14 +57,7 @@ py_ros_library(
     name = "msgs_py",
     deps = [
         "@builtin_interfaces//msg:Duration",
-        "@lifecycle_msgs//msg:State",
-        "@lifecycle_msgs//msg:Transition",
-        "@lifecycle_msgs//msg:TransitionDescription",
-        "@lifecycle_msgs//msg:TransitionEvent",
-        "@lifecycle_msgs//srv:ChangeState",
-        "@lifecycle_msgs//srv:GetAvailableStates",
-        "@lifecycle_msgs//srv:GetAvailableTransitions",
-        "@lifecycle_msgs//srv:GetState",
+        "@builtin_interfaces//msg:Time",
         "@rcl_interfaces//msg:FloatingPointRange",
         "@rcl_interfaces//msg:IntegerRange",
         "@rcl_interfaces//msg:ListParametersResult",
@@ -70,6 +66,7 @@ py_ros_library(
         "@rcl_interfaces//msg:Parameter",
         "@rcl_interfaces//msg:ParameterDescriptor",
         "@rcl_interfaces//msg:ParameterEvent",
+        "@rcl_interfaces//msg:ParameterEventDescriptors",
         "@rcl_interfaces//msg:ParameterType",
         "@rcl_interfaces//msg:ParameterValue",
         "@rcl_interfaces//msg:SetLoggerLevelsResult",
@@ -83,6 +80,12 @@ py_ros_library(
         "@rcl_interfaces//srv:SetParameters",
         "@rcl_interfaces//srv:SetParametersAtomically",
         "@rosgraph_msgs//msg:Clock",
+        "@type_description_interfaces//msg:Field",
+        "@type_description_interfaces//msg:FieldType",
+        "@type_description_interfaces//msg:IndividualTypeDescription",
+        "@type_description_interfaces//msg:KeyValue",
+        "@type_description_interfaces//msg:TypeDescription",
+        "@type_description_interfaces//msg:TypeSource",
         "@type_description_interfaces//srv:GetTypeDescription",
         "@unique_identifier_msgs//msg:UUID",
     ],
@@ -105,17 +108,11 @@ py_library(
 
 # Tests
 
-pybind_library(
-    name = "embed",
-    hdrs = glob(["src/rclpy/**/*.hpp"]),
-    includes = ["src/rclpy"],
-)
-
 pybind_library_test(
     name = "test_python_allocator",
     srcs = ["test/test_python_allocator.cpp"],
     deps = [
-        ":embed",
+        ":rclpy/_rclpy_pybind11",
         "@googletest//:gtest",
         "@googletest//:gtest_main",
     ],
@@ -126,7 +123,6 @@ pybind_library_test(
         name = test,
         srcs = ["test/{}.py".format(test)],
         data = glob(["test/resources/**"]),
-        python_version = "PY3",
         deps = [
             ":rclpy",
             "@rules_python//python/runfiles",
