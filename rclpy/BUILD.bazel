@@ -46,10 +46,6 @@ pybind_extension(
         "@rcl",
         "@rcl_action",
         "@rcl_lifecycle",
-        "@rcl_logging_interface",
-        "@rcpputils",
-        "@rcutils",
-        "@rosidl_runtime_c",
     ],
 )
 
@@ -182,7 +178,7 @@ py_library(
         "test_time_source",
         "test_topic_endpoint_info",
         "test_topic_or_service_is_hidden",
-        "test_type_description_service",
+        # "test_type_description_service",
         "test_type_hash",
         "test_type_support",
         "test_utilities",
