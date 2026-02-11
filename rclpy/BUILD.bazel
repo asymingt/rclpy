@@ -135,6 +135,7 @@ py_library(
             "@rules_python//python/runfiles",
             "@test_msgs//:test_msgs_py",
         ],
+        tags = ["exclusive"] if test in ["test_timer"] else []
     )
     for test in [
         "test_action_client",
